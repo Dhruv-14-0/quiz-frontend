@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    category : 'Java'
+  });
   const { addQuizId } = useUser()
   const navigate = useNavigate()
   const [errors,setErrors] = useState()

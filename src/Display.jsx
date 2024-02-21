@@ -14,7 +14,7 @@ function Display() {
             axios.get(`http://localhost:8080/quiz/getDetail/${quizId}`)
             .then((res)=>{
                 console.log(res.data);
-                setUserDetails(res.data[0])
+                setUserDetails(res.data)
             })
         } 
         console.log("line 17",quizId);
@@ -77,10 +77,16 @@ function Display() {
                             <td className='p-2 font-semibold'>Phone:</td>
                             <td className='p-2'>{userDetails.phone}</td>
                         </tr>
+                        <tr className='border-b border-gray-300'>
+                            <td className='p-2 font-semibold'>Category:</td>
+                            <td className='p-2'>{userDetails.category}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div className='flex justify-center pt-2'>
-                    <button className='inline-block  p-2 bg-blue-500 rounded-md font-medium hover:bg-blue-700 hover:text-gray-200 hover:shadow-lg'>
+                    <button className='inline-block  p-2 bg-blue-500 rounded-md font-medium hover:bg-blue-700 hover:text-gray-200 hover:shadow-lg'
+                    onClick={()=>{navigate('/questionsPage')}}
+                    >
                         Start quiz
                     </button>
 

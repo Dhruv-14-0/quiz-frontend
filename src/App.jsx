@@ -5,6 +5,7 @@ import Layout from './Layout.jsx'
 import LoginPage from './LoginPage.jsx'
 import { ThemeProvider, UserProvider } from './Context/index.js'
 import Display from './Display.jsx'
+import QuestionsPage from './QuestionsPage.jsx'
 
 function App() {
     const [themeMode, setThemeMode] = useState('light');
@@ -38,6 +39,7 @@ function App() {
                         <Route path='/' element={<Layout />}>
                             <Route path='' element={<LoginPage />} />
                             <Route path='display' element={<Display/>}/>
+                            <Route path='questionsPage' element={<QuestionsPage/>}/>
                         </Route>
                     </Routes>
                 </UserProvider>
