@@ -8,15 +8,15 @@ import Display from './Display.jsx'
 
 function App() {
     const [themeMode, setThemeMode] = useState('light');
-    const [user,setUser] = useState({});
+    const [quizId,setQuizId] = useState(0);
     const lightTheme = () => {
         setThemeMode('light')
     }
     const darkTheme = () => {
         setThemeMode('dark')
     }
-    const addUser=async (user)=>{
-        setUser(user);
+    const addQuizId=async (quizId)=>{
+        setQuizId(quizId);
     }
     useEffect(()=>{
         document.querySelector('html').classList.remove('dark','light')
@@ -24,20 +24,16 @@ function App() {
       },[themeMode])
     
     useEffect(()=>{
-        addUser({
-            quizId : JSON.parse(localStorage.getItem('quizId')),
-            emailId : JSON.parse(localStorage.getItem('emailId')),
-        })
+        addQuizId(JSON.parse(localStorage.getItem('quizId')))
     },[])
 
     useEffect(()=>{
-        localStorage.setItem('quizId',JSON.stringify(user.quizId));
-        localStorage.setItem('emailId',JSON.stringify(user.emailId));
-    },[user])
+        localStorage.setItem('quizId',JSON.stringify(quizId));
+    },[quizId])
     return (
         <BrowserRouter>
             <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
-                <UserProvider value = {{user,addUser}}>
+                <UserProvider value = {{quizId,addQuizId}}>
                     <Routes>
                         <Route path='/' element={<Layout />}>
                             <Route path='' element={<LoginPage />} />

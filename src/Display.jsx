@@ -4,18 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Display() {
-    const { user } = useUser();
+    const { quizId } = useUser();
     const navigate = useNavigate();
     const [userDetails,setUserDetails] = useState();
 
-    useEffect(()=>{ 
-        axios.get(`/api/details/${user.emailId}`)
-        .then((res)=>{
-            console.log(res.data);
-            setUserDetails(res.data)
-        })
-        console.log("line 17",user);
-    },[user])
+    useEffect(()=>{
+        if(quizId!=null){
+            console.log(13);
+            axios.get(`http://localhost:8080/quiz/getDetail/${quizId}`)
+            .then((res)=>{
+                console.log(res.data);
+                setUserDetails(res.data[0])
+            })
+        } 
+        console.log("line 17",quizId);
+    },[quizId])
     // const loadDetails = ()=>{
     //     axios.get(`/api/details/${user.emailId}`)
     //     .then((res)=>{
@@ -23,12 +26,18 @@ function Display() {
     //         setUserDetails(res.data)
     //     })
     // }
-    if (userDetails == null) {
-        return (
-            <>
-                Please Wait SomeTime
-                {/* {loadDetails()} */}
-            </>
+    if(userDetails==null){
+        return(
+            <div className='mx-auto bg-white rounded-xl shadow-md max-w-md p-5'>
+                <p>Please go to Login Page</p>
+                <div className='flex justify-center pt-2'>
+                    <button className='inline-block  p-2 bg-blue-500 rounded-md font-medium hover:bg-blue-700 hover:text-gray-200 hover:shadow-lg' onClick={()=>{navigate('/')}}
+                    >
+                        Login Page
+                    </button>
+
+                </div>
+            </div>
         )
     }
     return (

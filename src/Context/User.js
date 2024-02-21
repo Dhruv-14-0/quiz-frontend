@@ -1,11 +1,8 @@
 import { createContext, useContext } from "react";
 
 export const userContext = createContext({
-    user : {
-        emailId : "",
-        quizId : 0
-    },
-    addUser : async ()=>{}
+    quizId : 0,
+    addQuizId : async ()=>{}
 })
 
 export const UserProvider = userContext.Provider;

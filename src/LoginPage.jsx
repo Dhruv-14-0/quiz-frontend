@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [data, setData] = useState({});
-  const { addUser } = useUser()
+  const { addQuizId } = useUser()
   const navigate = useNavigate()
   const [errors,setErrors] = useState()
 
@@ -16,14 +16,19 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    axios.post("/api/questions", data).then((res) => {
-      if(res.data.quizId==0){
-        setErrors("Invalid Login credentials");
-      }
-      else{
-        addUser({quizId:res.data.quizId,emailId:data.email});
+    console.log(data);
+    axios.post("http://localhost:8080/quiz/auth", data).then((res) => {
+      console.log(res.data);
+      if(res.data!=0){
+        addQuizId(res.data);
         navigate('/display');
       }
+      else{
+        setErrors("Invalid Login credentials");
+      }
+    }).catch((res)=>{
+      setErrors("Invalid Login credentials")
+      console.log(res);
     })
     // localStorage.setItem('quizId',JSON.stringify(1000))
     // addQuizId(1000)
@@ -48,8 +53,8 @@ function LoginPage() {
         <div>
           <label htmlFor="Category" className='block text-sm font-medium text-gray-700 dark:text-gray-200'>Select Category</label>
           <select className='w-full p-2 bg-gray-100 border border-gray-400 shadow-md rounded-md mt-1 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-800' name='category' onChange={handleChange}>
-            <option value="technical" >Technical</option>
-            <option value="non-technical">Non-Technical</option>
+            <option value="Java" >Technical</option>
+            <option value="normal">Non-Technical</option>
           </select>
         </div>
         <div>
