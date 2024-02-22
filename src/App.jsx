@@ -6,10 +6,11 @@ import LoginPage from './LoginPage.jsx'
 import { ThemeProvider, UserProvider } from './Context/index.js'
 import Display from './Display.jsx'
 import QuestionsPage from './QuestionsPage.jsx'
+import Score from './Score.jsx'
 
 function App() {
     const [themeMode, setThemeMode] = useState('light');
-    const [quizId,setQuizId] = useState(0);
+    const [quizId,setQuizId] = useState();
     const lightTheme = () => {
         setThemeMode('light')
     }
@@ -40,6 +41,7 @@ function App() {
                             <Route path='' element={<LoginPage />} />
                             <Route path='display' element={<Display/>}/>
                             <Route path='questionsPage' element={<QuestionsPage/>}/>
+                            <Route path='lastPage' element={<Score/>}/>
                         </Route>
                     </Routes>
                 </UserProvider>

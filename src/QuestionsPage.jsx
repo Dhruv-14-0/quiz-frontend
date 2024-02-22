@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Question from './Components/Question'
 import { useUser } from './Context'
 import axios from 'axios'
+import { Navigate, useNavigate } from 'react-router-dom'
 function QuestionsPage() {
     const [questions, setQuestions] = useState([])
     const [answer, setAnswers] = useState({})
     const { quizId } = useUser();
-
+    const [ans,setAns] = useState([]);
+    const navigate=useNavigate();
     useEffect(() => {
+        console.log(11);
         if(quizId!=null){
             axios.get(`http://localhost:8080/quiz/question/${quizId}`).then((res) => setQuestions(res.data))
             console.log(questions);
@@ -22,12 +25,16 @@ function QuestionsPage() {
         console.log(answer);
     }
 
-    const handleSubmit = () =>{
-        axios.post(``,answer)
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        axios.post(`http://localhost:8080/quiz/submit/${quizId}`,answer).then((res)=>{
+            navigate('/lastPage')
+        })
+        // console.log(ans);
     }
     let i=1;
     return (
-        <div className='w-full bg-cover h-screen'>
+        <div className='w-full'>
             <div className='w-full'>
                 <div className='w-auto max-w-2xl mx-auto my-auto border border-gray-600 rounded-lg p-5 backdrop-blur-sm bg-black/70'>
                     <form action="" onSubmit={handleSubmit}>

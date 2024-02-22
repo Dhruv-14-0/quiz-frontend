@@ -3,15 +3,15 @@ import { useUser } from './Context'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Display() {
+function Score() {
     const { quizId } = useUser();
     const navigate = useNavigate();
     const [userDetails,setUserDetails] = useState();
 
     useEffect(()=>{
         if(quizId!=null){
-            console.log(13);
-            axios.get(`http://localhost:8080/quiz/getDetail/${quizId}`)
+            console.log(quizId)
+            axios.get(`http://localhost:8080/quiz/getLastPage/${quizId}`)
             .then((res)=>{
                 console.log(res.data);
                 setUserDetails(res.data)
@@ -61,7 +61,7 @@ function Display() {
         //     </div>
         // </div>
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                <h1 className='text-center p-2 text-2xl font-semibold bg-blue-500 text-white'>User Details</h1>
+                <h1 className='text-center p-2 text-2xl font-semibold bg-blue-500'>User Details</h1>
             <div className="p-5">
                 <table className='w-full border-collapse border border-gray-300'>
                     <tbody>
@@ -81,13 +81,17 @@ function Display() {
                             <td className='p-2 font-semibold'>Category:</td>
                             <td className='p-2'>{userDetails.category}</td>
                         </tr>
+                        <tr className='border-b border-gray-300'>
+                            <td className='p-2 font-semibold'>Your Final Score</td>
+                            <td className='p-2'>{userDetails.score}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div className='flex justify-center pt-2'>
-                    <button className='inline-block  p-2 bg-blue-500 rounded-md font-medium hover:bg-blue-700 text-white hover:text-white hover:shadow-lg'
-                    onClick={()=>{navigate('/questionsPage')}}
+                    <button className='inline-block  p-2 bg-blue-500 rounded-md font-medium hover:bg-blue-700 hover:text-gray-200 hover:shadow-lg'
+                    onClick={()=>{navigate('/')}}
                     >
-                        Start quiz
+                        Login Page
                     </button>
 
                 </div>
@@ -96,4 +100,4 @@ function Display() {
     )
 }
 
-export default Display
+export default Score
